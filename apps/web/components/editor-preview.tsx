@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { EditorProps } from '@maily-to/core';
-import { Editor } from '@maily-to/core';
+import type { EditorProps } from '@melvynx/maily-core';
+import { Editor } from '@melvynx/maily-core';
 import { Loader2, X } from 'lucide-react';
 import type { JSONContent } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';
@@ -11,6 +11,7 @@ import { Input } from './ui/input';
 import { PreviewTextInfo } from './preview-text-info';
 import { Label } from './ui/label';
 import defaultEditorJSON from '../utils/default-editor-json.json';
+import { useRef } from 'react';
 
 interface EditorPreviewProps {
   className?: string;
@@ -39,10 +40,10 @@ export function EditorPreview(props: EditorPreviewProps) {
     to,
     setTo,
     apiKey,
-
     isEditorFocused,
     setState,
   } = useEditorContext((s) => s);
+  const editorRef = useRef<any>(null);
 
   const [showReplyTo, setShowReplyTo] = useState(false);
 

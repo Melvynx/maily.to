@@ -47,10 +47,10 @@ importers:
 
   apps/web:
     dependencies:
-      '@maily-to/core':
+      '@melvynx/maily-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@maily-to/render':
+      '@melvynx/maily-render':
         specifier: workspace:*
         version: link:../../packages/render
       '@next/third-parties':

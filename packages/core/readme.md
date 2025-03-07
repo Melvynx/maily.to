@@ -14,7 +14,7 @@
 ## Installation
 
 ```bash
-pnpm add @maily-to/core
+pnpm add @melvynx/maily-core
 
 # for types
 pnpm add -D @tiptap/core
@@ -24,7 +24,7 @@ pnpm add -D @tiptap/core
 
 ```tsx
 import { useState } from 'react';
-import { Editor } from '@maily-to/core';
+import { Editor } from '@melvynx/maily-core';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 
 type AppProps = {
@@ -55,7 +55,7 @@ Suppose you have a couple of basic blocks, such as a text block or a heading blo
 
 ```tsx
 // omitting imports
-import { text, heading1 } from '@maily-to/core/blocks';
+import { text, heading1 } from '@melvynx/maily-core/blocks';
 
 <Editor
   blocks={[
@@ -149,7 +149,7 @@ You can pass variables to the editor in two ways:
 
    ```tsx
    // (Omitted repeated imports)
-   import { VariableExtension, getVariableSuggestions } from '@maily-to/core/extensions';
+   import { VariableExtension, getVariableSuggestions } from '@melvynx/maily-core/extensions';
 
    <Editor
      extensions={[
@@ -170,7 +170,7 @@ You can pass variables to the editor in two ways:
 
    ```tsx
    // (Omitted repeated imports)
-   import { VariableExtension, getVariableSuggestions } from '@maily-to/core/extensions';
+   import { VariableExtension, getVariableSuggestions } from '@melvynx/maily-core/extensions';
 
    <Editor
      extensions={[
@@ -207,7 +207,7 @@ Extensions are a way to extend the editor's functionality. You can add custom bl
 
 ```tsx
 // (Omitted repeated imports)
-import { MailyKit, VariableExtension, getVariableSuggestions } from '@maily-to/core/extensions';
+import { MailyKit, VariableExtension, getVariableSuggestions } from '@melvynx/maily-core/extensions';
 
 <Editor
   extensions={[
@@ -254,7 +254,7 @@ To enable image upload, you need to pass the `ImageUploadExtension` extension to
 
 ```tsx
 // (Omitted repeated imports)
-import { ImageUploadExtension } from '@maily-to/core/extensions';
+import { ImageUploadExtension } from '@melvynx/maily-core/extensions';
 
 <Editor
   extensions={[
@@ -269,7 +269,7 @@ import { ImageUploadExtension } from '@maily-to/core/extensions';
 />
 ```
 
-See the [@maily-to/render](../render) package for more information on how to render the editor content to HTML.
+See the [@melvynx/maily-render](../render) package for more information on how to render the editor content to HTML.
 
 <br/>
 
