@@ -11,7 +11,8 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test:watch": "turbo run test:watch",
+    "bump-publish": "node scripts/bump-and-publish.js"
   },
   "devDependencies": {
     "@types/node": "^22.7.7",
