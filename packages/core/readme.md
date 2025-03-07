@@ -23,6 +23,8 @@ pnpm add -D @tiptap/core
 ## Usage
 
 ```tsx
+import '@maily-to/core/style.css';
+
 import { useState } from 'react';
 import { Editor } from '@melvynx/maily-core';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
