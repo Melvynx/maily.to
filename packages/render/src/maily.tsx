@@ -34,6 +34,7 @@ import {
   DEFAULT_FONT,
   DEFAULT_LINK_TEXT_COLOR,
 } from '@maily-to/shared';
+import { Preheader } from './preheader';
 
 interface NodeOptions {
   parent?: JSONContent;
@@ -91,7 +92,7 @@ export interface MailyConfig {
    *
    * Default: `undefined`
    */
-  preview?: string;
+  preview?: string | JSONContent;
   /**
    * The theme object allows you to customize the colors and font sizes of the
    * rendered email.
@@ -234,6 +235,8 @@ export type PayloadValue = Record<string, any> | boolean;
 export type PayloadValues = Map<string, PayloadValue>;
 
 export class Maily {
+  readonly preheader = new Preheader(this);
+
   private readonly content: JSONContent;
   private config: MailyConfig = {
     theme: DEFAULT_THEME,
@@ -258,7 +261,7 @@ export class Maily {
     this.content = content;
   }
 
-  setPreviewText(preview?: string) {
+  setPreviewText(preview?: string | JSONContent) {
     this.config.preview = preview;
   }
 
@@ -440,10 +443,12 @@ export class Maily {
   }
 
   /**
-   * `markup` will render the JSON content into React Email markup.
-   * and return the raw React Tree.
+   * `children` will return the children of the content.
+   * this is useful for rendering the content in a custom component.
+   *
+   * @returns The children of the content as JSX elements
    */
-  markup() {
+  children() {
     const nodes = this.content.content || [];
     const jsxNodes = nodes.map((node, index) => {
       const nodeOptions: NodeOptions = {
@@ -460,6 +465,16 @@ export class Maily {
       return <Fragment key={generateKey()}>{component}</Fragment>;
     });
 
+    return jsxNodes;
+  }
+
+  /**
+   * `markup` will render the JSON content into React Email markup.
+   * and return the raw React Tree.
+   */
+  markup() {
+    const jsxNodes = this.children();
+
     const { preview } = this.config;
     const tags = meta(this.meta);
     const htmlProps = this.htmlProps;
@@ -475,6 +490,8 @@ export class Maily {
       ...this.config.theme?.body,
     };
 
+    const preheader = preview ? this.preheader.render(preview) : null;
+
     const markup = (
       <Html {...htmlProps}>
         <Head>
@@ -488,9 +505,7 @@ export class Maily {
           {tags}
         </Head>
         <Body style={bodyStyles}>
-          {preview ? (
-            <Preview id="__react-email-preview">{preview}</Preview>
-          ) : null}
+          {preheader ? <Preview>{preheader}</Preview> : null}
           <Container
             style={{
               width: '100%',
@@ -851,11 +866,7 @@ export class Maily {
     return <>{formattedVariable}</>;
   }
 
-  private getVariableValue(
-    variable: string,
-    fallback?: string,
-    options?: NodeOptions
-  ) {
+  getVariableValue(variable: string, fallback?: string, options?: NodeOptions) {
     const { payloadValue } = options || {};
 
     let formattedVariable = this.variableFormatter({
